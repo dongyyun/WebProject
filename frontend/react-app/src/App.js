@@ -2,10 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Axios from "axios";
 
+// components
+import Header from './components/Header/Header';
+import Feed from './components/Feed/Feed';
+
+
+
+ //context api
+import { useStateValue } from './state/Provider'
+
 function App() {
-  const [user, setUser] = useState("");
+  const [{user}, setUser] = useState("");
+  const [dispatch] = useStateValue();
   useEffect(() => {
-    Axios.post("/api/users").then((response) => {
+    Axios.post("api/postdata").then((response) => {
       if(response.data) {
         setUser(response.data);
       }else {
@@ -15,15 +25,18 @@ function App() {
   }, []);
   return (
       <div className="App">
-        <header className="App-header">
-          <h1>{user.id}</h1>
-          <h1>{user.username}</h1>
-          <h1>{user.password}</h1>
-          <h1>{user.email}</h1>
-        </header>
-        <p className="App-intro">
-          to get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          {
+
+            <>
+              <Header />
+            <div className="appBody">
+              <Feed />
+            </div>
+
+            </>
+
+
+          }
       </div>
   );
 }
