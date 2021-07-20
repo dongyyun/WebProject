@@ -15,12 +15,12 @@ public class PostDataController {
     @Autowired
     PostDataRepository pr;
 
-    @GetMapping("/postdata")
+    @GetMapping("api/postdata")
     public List<PostData> findAllPost() {
         return pr.findAll();
     }
 
-    @PostMapping("/postdata")
+    @PostMapping("api/postdata")
     public List<PostData> post(Model model) {
 
       return pr.findAll();
