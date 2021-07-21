@@ -1,30 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
-import Axios from "axios";
+import {BrowserRouter, Route} from 'react-router-dom'
+import {Container, Button, lightColors, Link} from 'react-floating-action-button'
+import {SignIn, SignUp} from "./page";
+import {faFont} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    Axios.post("/api/users").then((response) => {
-      if(response.data) {
-        setUser(response.data);
-      }else {
-        alert("failed to");
-      }
-    });
-  }, []);
+  //세션 로그인 여부에 따라 메뉴 변경
+  let isLogin = false;
+  let location = "/signin";
+  let tooltip = "로그인";
+
+  function isSignined() {
+    if (isLogin) {
+      location = "/signout"
+      tooltip = "로그아웃"
+    } else {
+      location = "/signin"
+      tooltip = "로그인"
+
+      return (
+        <Link
+          href="/signup"
+          tooltip="회원가입"
+          styles={{backgroundColor: lightColors.teal}}
+          icon=""/>
+      )
+    }
+
+    function tag() {
+      return
+    }
+  }
+
   return (
-      <div className="App">
-        <header className="App-header">
-          <h1>{user.id}</h1>
-          <h1>{user.username}</h1>
-          <h1>{user.password}</h1>
-          <h1>{user.email}</h1>
-        </header>
-        <p className="App-intro">
-          to get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+    <div>
+      <Container>
+        {
+          isSignined()
+        }
+        <Link href={location}
+              tooltip={tooltip}
+              styles={{backgroundColor: lightColors.teal}}
+              icon="far fa-sticky-note"/>
+        <Link href="#"
+              tooltip="test"
+              styles={{backgroundColor: lightColors.teal}}
+              icon="far fa-sticky-note"/>
+        <Button
+          tooltip="홈"
+          icon="fas fa-plus"
+          rotate={true}
+          styles={{backgroundColor: lightColors.orange}}
+          onClick={(e) => window.location.href = "/"}/>
+      </Container>
+      <BrowserRouter>
+        <div className="App">
+          <Route path="/signin" component={SignIn}/>
+          <Route path="/signup" component={SignUp}/>
+        </div>
+      </BrowserRouter>
+
+    </div>
   );
 }
 
