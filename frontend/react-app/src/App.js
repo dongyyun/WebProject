@@ -3,6 +3,7 @@ import "./App.css";
 import {BrowserRouter, Route} from 'react-router-dom'
 import {Container, Button, lightColors, Link} from 'react-floating-action-button'
 import {SignIn, SignUp} from "./page";
+import AddIcon from '@material-ui/icons/Add';
 import {faFont} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
@@ -20,16 +21,13 @@ function App() {
       tooltip = "로그인"
 
       return (
+
         <Link
           href="/signup"
           tooltip="회원가입"
           styles={{backgroundColor: lightColors.teal}}
-          icon=""/>
+          icon="AddIcon"/>
       )
-    }
-
-    function tag() {
-      return
     }
   }
 

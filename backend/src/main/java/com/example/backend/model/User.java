@@ -1,18 +1,21 @@
 package com.example.backend.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Data
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
 
-    int id;
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
 
-    public User(int id, String username, String password, String email){
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
-
+    @OneToMany(mappedBy = "user")
+    private List<Board> boardList;
 }
